@@ -37,7 +37,11 @@
       "package.json",
       "./src/main.js"
     ],
-    "extends": null
+    "extends": null,
+    "mac": {
+      "icon": "./public/react_ts.png"
+    },
+    "win": {}
   },
   "scripts": {
     "start": "react-scripts start",
