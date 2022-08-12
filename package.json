@@ -30,7 +30,7 @@
   "build": {
     "appId": "CLOUDDOC",
     "productName": "测试Eletron打包",
-    "copyright": "Copyright © year ${author}",
+    "copyright": "Copyright © 2022 year ${author}",
     "files": [
       "build/**/*",
       "node_modules/**/*",
