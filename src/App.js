@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef, useEffect } from 'react';
 
 function App() {
+  const audioRef = useRef(null)
+
+  useEffect(() => {
+    audioRef.current.play()
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>leo</p>
-      </header>
+      <audio ref={audioRef} id='mp3' src='https://music.163.com/song/media/outer/url?id=1910842986.mp3'></audio>
     </div>
   );
 }

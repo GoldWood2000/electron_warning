@@ -1,5 +1,5 @@
 {
-  "name": "cloud-doc",
+  "name": "electron_warning",
   "version": "0.1.0",
   "main": "./src/main.js",
   "private": true,
@@ -28,8 +28,8 @@
   },
   "homepage": "./",
   "build": {
-    "appId": "CLOUDDOC",
-    "productName": "测试Eletron打包",
+    "appId": "electron_warning",
+    "productName": "云轨预警",
     "copyright": "Copyright © 2022 year ${author}",
     "files": [
       "build/**/*",
@@ -49,7 +49,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "electron .",
-    "serve": "concurrently \"wait-on http://localhost:3000 && electron .\" \" cross-env BROWSER=none npm start\"",
+    "serve": "concurrently \"wait-on http://localhost:3000 && nodemon --watch main.js --exec electron .\" \" cross-env BROWSER=none npm start\"",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "prepack": "npm run build"
