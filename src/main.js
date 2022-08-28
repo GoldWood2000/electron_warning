@@ -1,12 +1,19 @@
 
-const { app, Tray, Menu, nativeImage, BrowserWindow, ipcMain } = require('electron')
+const { app, Tray, Menu, nativeImage, BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
 const path = require('path')
+const system = process.platform
 
 app.whenReady().then(() => {
-
   //隐藏图标
-  app.dock.hide()
+  switch (true) {
+    case system === 'darwin':
+      app.dock.hide()
+      break;
+    case system === 'win32':
+      Menu.setApplicationMenu(null)
+      break;
+  }
 
   //设置托盘
   const icon = nativeImage.createFromPath(path.join(__dirname, './assets/githubTemplate.png'))

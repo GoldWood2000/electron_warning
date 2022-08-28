@@ -36,7 +36,9 @@
       "build/**/*",
       "node_modules/**/*",
       "package.json",
-      "./src/main.js"
+      "./src/main.js",
+      "./src/preload.js",
+      "./src/assets/**/*"
     ],
     "extends": null,
     "mac": {
