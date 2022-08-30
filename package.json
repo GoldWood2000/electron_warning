@@ -62,6 +62,8 @@
     "serve": "concurrently \"wait-on http://localhost:3000 && nodemon --watch main.js --exec electron .\" \" cross-env BROWSER=none npm start\"",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "distwin": "electron-builder -w",
+    "predistwin": "npm run build",
     "prepack": "npm run build"
   },
   "eslintConfig": {
