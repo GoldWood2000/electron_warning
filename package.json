@@ -9,13 +9,7 @@
     "url": "https://github.com/GoldWood2000"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
     "electron-is-dev": "^2.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "axios": "^0.27.2"
   },
@@ -25,7 +19,13 @@
     "electron": "^19.0.10",
     "electron-builder": "^23.1.0",
     "electron-is-dev": "^2.0.0",
-    "wait-on": "^6.0.1"
+    "wait-on": "^6.0.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
   },
   "homepage": "./",
   "build": {
@@ -42,9 +42,16 @@
     ],
     "extends": null,
     "mac": {
-      "icon": "./public/react_ts.png"
+      "icon": "./public/warning.png"
     },
-    "win": {}
+    "win": {
+      "icon": "./public/warning.png"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    }
   },
   "scripts": {
     "start": "react-scripts start",
