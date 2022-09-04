@@ -14,7 +14,7 @@ app.whenReady().then(() => {
     { label: '暂停', click: () => { mainWindow.webContents.send('handleAudio', 0) } },
     { label: '退出程序', click: () => { app.quit() } },
   ])
-  tray.setToolTip('云轨信息')
+  tray.setToolTip('语音提示小助手')
   tray.setContextMenu(contextMenu)
 
   //开启窗口

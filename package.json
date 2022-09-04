@@ -30,7 +30,7 @@
   "homepage": "./",
   "build": {
     "appId": "electron_warning",
-    "productName": "云轨预警",
+    "productName": "语音提示小助手",
     "copyright": "Copyright © 2022 year ${author}",
     "files": [
       "build/**/*",
@@ -60,11 +60,12 @@
     "eject": "react-scripts eject",
     "dev": "electron .",
     "serve": "concurrently \"wait-on http://localhost:3000 && nodemon --watch main.js --exec electron .\" \" cross-env BROWSER=none npm start\"",
-    "pack": "electron-builder --dir",
+    "pack": "electron-builder --dir -w",
+    "prepack": "npm run build",
     "dist": "electron-builder",
+    "predist": "npm run build",
     "distwin": "electron-builder -w",
-    "predistwin": "npm run build",
-    "prepack": "npm run build"
+    "predistwin": "npm run build"
   },
   "eslintConfig": {
     "extends": [

@@ -6,14 +6,18 @@ const App = () => {
   const audioRef = useRef(null)
   const tokenRef = useRef(null)
   const pauseRef = useRef(false);
+  const countRef = useRef(0)
 
   const audioEnd = (e) => {
+    if (countRef.current === 2) return
+    countRef.current += 1
     audioRef.current.play()
   }
 
   const getToken = () => {
     return axios.post(`${config.host}api/auth/loginin`, config.loginUser).then((res) => {
       res.data.code === 1 && (tokenRef.current = res.data.data)
+      return res
     })
   }
 
@@ -21,6 +25,13 @@ const App = () => {
     return axios.get(`${config.host}api/tpsms/center/dmp/dmpTourTaskProblem/noAuthMaxDate`, {
       headers: { Authorization: `Bearer ${tokenRef.current}` }
     }).then(res => res)
+  }
+
+  const handleAudio = res => {
+    const { data } = res
+    if (data.code === 1) {
+      data.data.icount > 0 ? audioRef.current.play() : audioRef.current.pause()
+    }
   }
 
   useEffect(() => {
@@ -37,7 +48,9 @@ const App = () => {
       }
     })
 
-    getToken()
+    getToken().then(res => {
+      getInfo().then(handleAudio)
+    })
 
     const interval = setInterval(() => {
       if (!tokenRef.current) {
@@ -47,12 +60,7 @@ const App = () => {
       if (pauseRef.current) {
         return
       }
-      getInfo().then(res => {
-        const { data } = res
-        if (data.code === 1) {
-          data.data.icount > 0 ? audioRef.current.play() : audioRef.current.pause()
-        }
-      }).catch(() => getToken())
+      getInfo().then(handleAudio).then(() => countRef.current = 0)
     }, config.interval)
 
     return () => { clearInterval(interval) }
@@ -60,7 +68,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <audio ref={audioRef} id='mp3' onEnded={audioEnd} src={`${require('./assets/IOS.wav')}`}></audio>
+      <audio ref={audioRef} id='mp3' onEnded={audioEnd} src={`${require('./assets/warning.mp3')}`}></audio>
     </div>
   );
 }
