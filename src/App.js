@@ -2,6 +2,27 @@ import React, { useRef, useEffect } from 'react';
 import axios from 'axios';
 import config from './config';
 
+const EventListen = (audioRef, pauseRef, isTwinkl) => {
+  window.ipcRenderer.on('handleAudio', (e, params) => {
+    switch (true) {
+      case params === 0:
+        audioRef.current.pause()
+        pauseRef.current = true
+        window.ipcRenderer.send('haveMessage', false)
+        break;
+      case params === 1:
+        audioRef.current.currentTime = 0
+        pauseRef.current = false
+        isTwinkl()
+        break;
+    }
+  })
+
+  window.ipcRenderer.on('isTwinkl', (e, params) => {
+    isTwinkl()
+  })
+}
+
 const App = () => {
   const audioRef = useRef(null)
   const tokenRef = useRef(null)
@@ -30,23 +51,24 @@ const App = () => {
   const handleAudio = res => {
     const { data } = res
     if (data.code === 1) {
-      data.data.icount > 0 ? audioRef.current.play() : audioRef.current.pause()
+      if (data.data.icount > 0) {
+        audioRef.current.play()
+        window.ipcRenderer.send('haveMessage', true)
+      } else {
+        audioRef.current.pause()
+        window.ipcRenderer.send('haveMessage', false)
+      }
     }
   }
 
-  useEffect(() => {
-    window.ipcRenderer.on('handleAudio', (e, params) => {
-      switch (true) {
-        case params === 0:
-          audioRef.current.pause()
-          pauseRef.current = true
-          break;
-        case params === 1:
-          audioRef.current.play()
-          pauseRef.current = false
-          break;
-      }
+  const isTwinkl = () => {
+    getInfo().then(({ data }) => {
+      window.ipcRenderer.send('haveMessage', data.data.icount === 0 ? false : true)
     })
+  }
+
+  useEffect(() => {
+    EventListen(audioRef, pauseRef, isTwinkl)
 
     getToken().then(res => {
       getInfo().then(handleAudio)
