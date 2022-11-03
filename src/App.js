@@ -43,7 +43,9 @@ const App = () => {
   }
 
   const getInfo = () => {
-    return axios.get(`${config.host}api/tpsms/center/dmp/dmpTourTaskProblem/noAuthMaxDate`, {
+    //tpsms/center/dmp/dmpTourTaskProblem/noAuthMaxDate
+    //tpsms/center/std/stdMalfunctionCenter/noAuthMaxDateCenter
+    return axios.get(`${config.host}api/tpsms/center/std/stdMalfunctionCenter/noAuthMaxDateCenter`, {
       headers: { Authorization: `Bearer ${tokenRef.current}` }
     }).then(res => res)
   }
