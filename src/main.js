@@ -53,11 +53,11 @@ app.whenReady().then(() => {
 
 
 const messageTip = (tray, icon) => {
-  let twinkl = true
-  if (!timer) {
-    timer = setInterval(() => {
-      twinkl = !twinkl
-      twinkl ? tray.setImage(icon) : tray.setImage(path.join(__dirname, './assets/null.png'))
-    }, 500)
-  }
+  // let twinkl = true
+  // if (!timer) {
+  //   timer = setInterval(() => {
+  //     twinkl = !twinkl
+  //     twinkl ? tray.setImage(icon) : tray.setImage(path.join(__dirname, './assets/null.png'))
+  //   }, 500)
+  // }
 }

@@ -43,9 +43,14 @@ const App = () => {
   }
 
   const getInfo = () => {
+    //tpsms/center/dmp/dmpTourTaskProblem/noAuthMaxDate
+    //tpsms/center/std/stdMalfunctionCenter/noAuthMaxDateCenter
     return axios.get(`${config.host}api/tpsms/center/dmp/dmpTourTaskProblem/noAuthMaxDate`, {
       headers: { Authorization: `Bearer ${tokenRef.current}` }
-    }).then(res => res)
+    }).then(res => res).catch(err => {
+      const { response: { data: { code } } } = err
+      code === 40001 && getToken().then(res => { getInfo().then(handleAudio).then(() => countRef.current = 0) })
+    })
   }
 
   const handleAudio = res => {
